@@ -3,6 +3,8 @@ package com.marcklen.projeto.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,14 @@ public class TecnicoService {
 		return repository.save(tec);
 	}
 
+	public Tecnico update(Integer id, @Valid TecnicoDTO dto) {
+		dto.setId(id);
+		Tecnico tecAntigo = findById(id);
+		validacaoPorCPFeEmail(dto);
+		tecAntigo = new Tecnico(dto);
+		return repository.save(tecAntigo);
+	}
+	
 	private void validacaoPorCPFeEmail(TecnicoDTO dto) {
 		Optional<Pessoa> obj = pessoa.findByCpf(dto.getCpf());
 		if (obj.isPresent() && obj.get().getId() != dto.getId()) {
@@ -49,4 +59,5 @@ public class TecnicoService {
 			throw new DataIntegrityViolationException("Email já cadastrado no sistema!");
 		}
 	}
+
 }

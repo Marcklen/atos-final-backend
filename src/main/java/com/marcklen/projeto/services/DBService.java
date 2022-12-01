@@ -26,21 +26,21 @@ public class DBService {
 	private ChamadoRepository chamadoRepository;
 
 	public void instanciarDB() {
-		Tecnico t1 = new Tecnico(null, "Marcklen Guimaraes", "01724375393", "marcklen@gmail.com", "123");
+		Tecnico t1 = new Tecnico(null, "Marcklen Guimaraes", "017.243.753-93", "marcklen@gmail.com", "123");
 		t1.addPerfil(Perfil.ADMIN);
 		
-		Tecnico t2 = new Tecnico(null, "Miguel Dourado", "01225232341", "miguel@email.com", "123");
+		Tecnico t2 = new Tecnico(null, "Miguel Dourado", "057.464.343-53", "miguel@email.com", "123");
 		t1.addPerfil(Perfil.TECNICO);
-		
-		Tecnico t3 = new Tecnico(null, "Danielle Alcantara", "01829529563", "danielle@yahoo.com", "123");
-		t1.addPerfil(Perfil.TECNICO);
+//		
+//		Tecnico t3 = new Tecnico(null, "Danielle Alcantara", "018.985.283-99", "danielle@yahoo.com", "123");
+//		t1.addPerfil(Perfil.TECNICO);
 
-		Cliente c1 = new Cliente(null, "Danielle Dourado", "01898528365", "danielle@email.com", "246");
+		Cliente c1 = new Cliente(null, "Danielle Dourado", "018.985.283-65", "danielle@email.com", "246");
 		// c1.addPerfil(Perfil.CLIENTE);
 
 		Chamado chama = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado01", "Primeiro Chamado", t1, c1);
 
-		tecnicoRepository.saveAll(Arrays.asList(t1,t2,t3));
+		tecnicoRepository.saveAll(Arrays.asList(t1,t2));
 		clienteRepository.saveAll(Arrays.asList(c1));
 		chamadoRepository.saveAll(Arrays.asList(chama));
 	}
