@@ -37,11 +37,14 @@ public class DBService {
 
 		Cliente c1 = new Cliente(null, "Danielle Dourado", "018.985.283-65", "danielle@email.com", "246");
 		// c1.addPerfil(Perfil.CLIENTE);
+		
+		Cliente c2 = new Cliente(null, "Condinho Junior", "739.425.330-90", "condinho@email.com", "246");
+
 
 		Chamado chama = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado01", "Primeiro Chamado", t1, c1);
 
 		tecnicoRepository.saveAll(Arrays.asList(t1,t2));
-		clienteRepository.saveAll(Arrays.asList(c1));
+		clienteRepository.saveAll(Arrays.asList(c1, c2));
 		chamadoRepository.saveAll(Arrays.asList(chama));
 	}
 
