@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcklen.projeto.domain.Tecnico;
 import com.marcklen.projeto.domain.enums.Perfil;
@@ -14,8 +16,11 @@ public class TecnicoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	protected Integer id;
+	@NotNull(message = "o campo NOME não pode ser nulo")
 	protected String nome;
+	@NotNull(message = "o campo CPF não pode ser nulo") 
 	protected String cpf;
+	@NotNull(message = "o campo EAMIL não pode ser nulo") 
 	protected String email;
 	protected String senha;
 	protected Set<Integer> perfis = new HashSet<>();
