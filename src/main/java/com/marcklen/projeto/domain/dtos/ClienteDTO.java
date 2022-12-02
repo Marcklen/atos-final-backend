@@ -20,7 +20,7 @@ public class ClienteDTO implements Serializable {
 	protected String nome;
 	@NotNull(message = "o campo CPF não pode ser nulo") 
 	protected String cpf;
-	@NotNull(message = "o campo EAMIL não pode ser nulo") 
+	@NotNull(message = "o campo EMAIL não pode ser nulo") 
 	protected String email;
 	protected String senha;
 	protected Set<Integer> perfis = new HashSet<>();
