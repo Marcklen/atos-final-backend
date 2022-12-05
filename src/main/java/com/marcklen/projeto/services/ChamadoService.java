@@ -30,17 +30,17 @@ public class ChamadoService {
 
 	public Chamado findById(Integer id) {
 		Optional<Chamado> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundExceptions("Chamado de Numero " + id + " não encontrado "));
+		return obj.orElseThrow(() -> new ObjectNotFoundExceptions("Objeto não encontrado! ID: " + id));
 	}
 
 	public List<Chamado> findAll() {
 		return repository.findAll();
 	}
 
-	public Chamado create(ChamadoDTO dto) {
-		return repository.save(newChamado(dto));
+	public Chamado create(ChamadoDTO obj) {
+		return repository.save(newChamado(obj));
 	}
-	
+
 	public Chamado update(Integer id, @Valid ChamadoDTO objDTO) {
 		objDTO.setId(id);
 		Chamado oldObj = findById(id);
@@ -56,11 +56,11 @@ public class ChamadoService {
 		if (obj.getId() != null) {
 			chamado.setId(obj.getId());
 		}
-		
-		if(obj.getStatus().equals(2)) {
+
+		if (obj.getStatus().equals(2)) {
 			chamado.setDataFechamento(LocalDate.now());
 		}
-		
+
 		chamado.setTecnico(tecnico);
 		chamado.setCliente(cliente);
 		chamado.setPrioridade(Prioridade.toEnum(obj.getPrioridade()));

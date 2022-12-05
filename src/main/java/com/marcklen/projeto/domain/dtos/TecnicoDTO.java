@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcklen.projeto.domain.Tecnico;
 import com.marcklen.projeto.domain.enums.Perfil;
@@ -16,14 +18,22 @@ public class TecnicoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	protected Integer id;
+	
 	@NotNull(message = "o campo NOME não pode ser nulo")
 	protected String nome;
+	
 	@NotNull(message = "o campo CPF não pode ser nulo") 
+	@CPF
 	protected String cpf;
+	
 	@NotNull(message = "o campo EMAIL não pode ser nulo") 
 	protected String email;
+	
+	@NotNull(message = "o campo SENHA não pode ser nulo") 
 	protected String senha;
+	
 	protected Set<Integer> perfis = new HashSet<>();
+	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
 
@@ -32,15 +42,16 @@ public class TecnicoDTO implements Serializable {
 		addPerfis(Perfil.CLIENTE);
 	}
 
-	public TecnicoDTO(Tecnico tec) {
+	public TecnicoDTO(Tecnico obj) {
 		super();
-		this.id = tec.getId();
-		this.nome = tec.getNome();
-		this.cpf = tec.getCpf();
-		this.email = tec.getEmail();
-		this.senha = tec.getSenha();
-		this.perfis = tec.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
-		this.dataCriacao = tec.getDataCriacao();
+		this.id = obj.getId();
+		this.nome = obj.getNome();
+		this.cpf = obj.getCpf();
+		this.email = obj.getEmail();
+		this.senha = obj.getSenha();
+		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+		this.dataCriacao = obj.getDataCriacao();
+		addPerfis(Perfil.CLIENTE);
 	}
 
 	public Integer getId() {
