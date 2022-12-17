@@ -22,6 +22,10 @@ import com.marcklen.projeto.domain.Chamado;
 import com.marcklen.projeto.domain.dtos.ChamadoDTO;
 import com.marcklen.projeto.services.ChamadoService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "API REST Chamados")
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/chamados")
@@ -30,12 +34,14 @@ public class ChamadoResource {
 	@Autowired
 	private ChamadoService service;
 
+	@ApiOperation(value = "Lista um chamado por sua ID")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ChamadoDTO> findById(@PathVariable Integer id) {
 		Chamado obj = service.findById(id);
 		return ResponseEntity.ok().body(new ChamadoDTO(obj));
 	}
 
+	@ApiOperation(value = "Lista todos os chamados")
 	@GetMapping
 	public ResponseEntity<List<ChamadoDTO>> findAll() {
 		List<Chamado> list = service.findAll();
@@ -43,6 +49,7 @@ public class ChamadoResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 
+	@ApiOperation(value = "Cria um chamado")
 	@PostMapping
 	public ResponseEntity<ChamadoDTO> create(@Valid @RequestBody ChamadoDTO obj) {
 		Chamado newObj = service.create(obj);
@@ -50,6 +57,7 @@ public class ChamadoResource {
 		return ResponseEntity.created(uri).build();
 	}
 
+	@ApiOperation(value = "Atualizad um chamado por sua ID")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ChamadoDTO> update(@PathVariable Integer id, @Valid @RequestBody ChamadoDTO objDTO) {
 		Chamado newObj = service.update(id, objDTO);

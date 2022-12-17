@@ -23,6 +23,10 @@ import com.marcklen.projeto.domain.Cliente;
 import com.marcklen.projeto.domain.dtos.ClienteDTO;
 import com.marcklen.projeto.services.ClienteService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "API REST Clientes")
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/clientes")
@@ -31,12 +35,14 @@ public class ClienteResource {
 	@Autowired
 	ClienteService service;
 
+	@ApiOperation(value = "Busca um cliente por sua ID")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
 		Cliente cli = service.findById(id);
 		return ResponseEntity.ok().body(new ClienteDTO(cli));
 	}
-
+	
+	@ApiOperation(value = "Busca todos os clientes")
 	@GetMapping
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		List<Cliente> lista = service.findAll();
@@ -44,6 +50,7 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(listaDTO);
 	}
 
+	@ApiOperation(value = "Cria um cliente")
 	@PostMapping
 	public ResponseEntity<ClienteDTO> create(@Valid @RequestBody ClienteDTO dto) {
 		Cliente cli = service.create(dto);
@@ -51,12 +58,14 @@ public class ClienteResource {
 		return ResponseEntity.created(uri).build();
 	}
 
+	@ApiOperation(value = "Atualiza um cliente por sua ID")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ClienteDTO> update(@PathVariable Integer id, @Valid @RequestBody ClienteDTO dto) {
 		Cliente cli = service.update(id, dto);
 		return ResponseEntity.ok().body(new ClienteDTO(cli));
 	}
-	
+
+	@ApiOperation(value = "Deleta um cliente por sua ID")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<ClienteDTO> delete(@PathVariable Integer id) {
 		service.delete(id);
